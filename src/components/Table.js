@@ -1,8 +1,11 @@
-export const Table = () => {
+import {Row} from './Row';
+
+export const Table = ({rows}) => {
+
     return (
         <>
-            <div class="container mt-2">
-                <table class="table">
+            <div className="container mt-2">
+                <table className="table">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -16,16 +19,16 @@ export const Table = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Deshrit</td>
-                            <td>deshrit@deshrit.com</td>
-                            <td>9843131234</td>
-                            <td>2058/3/12</td>
-                            <td>Nepal, bagmati, kathmandu</td>
-                            <td><button><i class="fa fa-edit"></i></button></td>
-                            <td><button><i class="fa fa-trash"></i></button></td>
-                        </tr>
+                        {
+                            rows.map((value, idx) => {
+                                // value = {...value, idx}
+                                return (
+                                    <Row key={idx} idx={idx} row={value} />
+                                )
+                                
+                            })
+                        }
+                        
                     </tbody>
                 </table>
             </div>

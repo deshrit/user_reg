@@ -1,62 +1,79 @@
-export const Form = () => {
+import {country, provience, district} from '../data'
+import propTypes from 'prop-types'
+
+
+export const Form = ({status, formValues, handleChange, handleSubmit}) => {
 
 	return (
 		<>
-			<div class="container col-sm-6 border border-dark rounded p-3 mt-3">
-				<form method="get" action="tf_form.html" onsubmit="return submit_form()">
+			<div className="container col-sm-6 border border-dark rounded p-3 mt-3">
+				<form method="get" action="tf_form.html" onSubmit={handleSubmit}>
 		
-					<div class="form-group h2 text-center mt-2">User Registration</div>			
+					<div className="form-group h2 text-center mt-2">User Registration</div>			
 					
-					<div class="row">
-						<div class="form-group mt-1 col">
-							<label for="name" class="control-label">Name:</label>
-							<input type="text" name="name" id="name" class="form-control" placeholder="Enter name" required />
+					<div className="row">
+						<div className="form-group mt-1 col">
+							<label htmlFor="name" className="control-label">Name:</label>
+							<input type="text" name="name" id="name" className="form-control" placeholder="Enter name" required value={formValues.name} onChange={handleChange}/>
 						</div>
-						<div class="form-group mt-1 col">
-							<label for="email">Email:</label>
-							<input type="email" name="email" id="email" class="form-control" placeholder="Enter email" required />
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="form-group mt-1 col">
-							<label for="phone">Phone Number:</label>
-							<input type="tel" name="phone" id="phone" class="form-control"  placeholder="012-345-6789" pattern="[0-9]{10}" required />
-						</div>
-						<div class="form-group mt-1 col">
-							<label for="dob">Date of birth:</label>
-							<input type="date" name="dob" id="dob" class="form-control"/>
+						<div className="form-group mt-1 col">
+							<label htmlFor="email">Email:</label>
+							<input type="email" name="email" id="email" className="form-control" placeholder="Enter email" required value={formValues.email} onChange={handleChange}/>
 						</div>
 					</div>
 
-					<div id="address" class="form-group mt-1">
-						<div class="row">	
-							<div class="from-control col">
-								<label for="country">Country:</label>
-								<select name="country" id="country" class="form-select">
+					<div className="row">
+						<div className="form-group mt-1 col">
+							<label htmlFor="phone">Phone Number:</label>
+							<input type="tel" name="phone" id="phone" className="form-control"  placeholder="012-345-6789" pattern="[0-9]{10}" required value={formValues.phone} onChange={handleChange}/>
+						</div>
+						<div className="form-group mt-1 col">
+							<label htmlFor="dob">Date of birth:</label>
+							<input type="date" name="dob" id="dob" className="form-control" value={formValues.dob} onChange={handleChange}/>
+						</div>
+					</div>
+
+					<div id="address" className="form-group mt-1">
+						<div className="row">	
+							<div className="from-control col">
+								<label htmlFor="country">Country:</label>
+								<select name="country" id="country" className="form-select" value={formValues.country} onChange={handleChange}>
+										{
+											country.map((value, idx) => {
+												return <option key={idx}>{value}</option>
+											})
+										}
 								</select>
 							</div>
-							<div class="form-group col">
-								<label for="provience">Provience</label>
-								<select name="provience" id="provience" class="form-select">
-									<option value="" selected>select</option>
+							<div className="form-group col">
+								<label htmlFor="provience">Provience</label>
+								<select name="provience" id="provience" className="form-select" value={formValues.provience} onChange={handleChange}>
+										{
+											provience.map((value, idx) => {
+												return <option key={idx}>{value}</option>
+											})
+										}
 								</select>
 							</div>
-							<div class="form-group col">
-								<label for="district">District</label>
-								<select name="district" id="district" class="form-select">
-									<option value="" selected>select</option>
+							<div className="form-group col">
+								<label htmlFor="district">District</label>
+								<select name="district" id="district" className="form-select" value={formValues.district} onChange={handleChange}>
+										{
+											district.map((value, idx) => {
+												return <option key={idx}>{value}</option>
+											})
+										}
 								</select>
 							</div>
-							<div class="from-group col">
-								<label for="city">City</label>
-								<input type="text" name="city" id="city" class="form-control" placeholder="Enter city..." />
+							<div className="from-group col">
+								<label htmlFor="city">City</label>
+								<input type="text" name="city" id="city" className="form-control" placeholder="Enter city..." value={formValues.city} onChange={handleChange}/>
 							</div>
 						</div>
 					</div>
 
-					<div class="form-group mt-3">
-						<button class="btn btn-primary col-12">Submit</button>
+					<div className="form-group mt-3">
+						<button type="submit" className="btn btn-primary col-12">Submit</button>
 					</div>
 				</form>
 			</div>		
@@ -64,3 +81,15 @@ export const Form = () => {
 	);
 
 };
+
+
+Form.defaultProps = {
+	status: false,
+}
+
+Form.propTypes = {
+	formValues: propTypes.object,
+	handleChange: propTypes.func,
+	handleSubmit: propTypes.func
+
+}
